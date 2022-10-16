@@ -1,0 +1,131 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.uxap"
+	xmlns:layout="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:l="sap.ui.layout"
+	xmlns:core="sap.ui.core"
+	xmlns:m="sap.m"
+	height="100%"
+	controllerName="suppliers.products.application.controller.ProductDetails">
+	<ObjectPageLayout id="ObjectPageLayout"
+		subSectionLayout="TitleOnLeft"
+		showTitleInHeaderContent="true"
+		upperCaseAnchorBar="false"
+		showFooter="{= ${AppModel>/editMode} }">
+		<headerTitle>
+			<ObjectPageDynamicHeaderTitle>
+				<breadcrumbs>
+					<m:Breadcrumbs>
+						<m:Link text="{i18n>LinkToFirstPage}"
+							press="goToSuppliersOverview"/>
+						<m:Link text="{i18n>LinkToSecondPage}"
+							press="goToSuppliersDetails"/>
+						<m:Link text="{i18n>LinkToThirdPage}" />
+					</m:Breadcrumbs>
+				</breadcrumbs>
+				<expandedHeading>
+					<m:Title text="{Name}"
+						wrapping="true"
+						class="sapUiSmallMarginTop"/>
+				</expandedHeading>
+				<actions>
+					<m:Button text="{i18n>EditButton}"
+						type="Emphasized"
+						visible="{= !${AppModel>/editMode} }"
+						press="onEditPress"/>
+
+				</actions>
+			</ObjectPageDynamicHeaderTitle>
+		</headerTitle>
+		<sections>
+			<ObjectPageSection title="{i18n>TitleGeneralInformation}">
+				<subSections>
+					<ObjectPageSubSection >
+						<blocks>
+							<f:SimpleForm layout="ResponsiveGridLayout"
+								labelSpanXL="2"
+								labelSpanL="2"
+								labelSpanM="2"
+								labelSpanS="12"
+								emptySpanXL="5"
+								emptySpanL="5"
+								emptySpanM="5"
+								emptySpanS="0"
+								columnsXL="1"
+								columnsL="1"
+								columnsM="1"
+								editable="true">
+								<f:content>
+									<m:Label text="{i18n>LabelSearch}" />
+									<m:HBox >
+										<m:Text text="{Name}"
+											class="sapUiSmallMarginBegin"
+											visible="{= !${AppModel>/editMode} }"/>
+										<m:Input value="{Name}"
+											change="onFocusLeaves"
+											placeholder="Enter product name"
+											visible="{= ${AppModel>/editMode} }"
+											class="sapUiSmallMarginBegin"
+											fieldGroupIds="inputsEditMode"/>
+									</m:HBox>
+									<m:Label text="{i18n>Price}"/>
+									<m:HBox>
+										<m:Text text="{Price}"
+											class="sapUiSmallMarginBegin"
+											visible="{= !${AppModel>/editMode} }"/>
+										<m:Input value="{Price}"
+											placeholder="Enter price"
+											visible="{= ${AppModel>/editMode} }"
+											class="sapUiSmallMarginBegin"
+											type="Number"
+											change="onFocusLeaves"
+											fieldGroupIds="inputsEditMode"/>
+									</m:HBox>
+									<m:Label text="{i18n>Description}"/>
+									<m:HBox>
+										<m:Text text="{Description}"
+											class="sapUiSmallMarginBegin"
+											visible="{= !${AppModel>/editMode} }"/>
+										<m:TextArea value="{Description}"
+											change="onFocusLeaves"
+											rows="4"
+											visible="{= ${AppModel>/editMode} }"
+											class="sapUiSmallMarginBegin"
+											fieldGroupIds="inputsEditMode"
+											width="99%"/>
+									</m:HBox>
+									<m:Label text="{i18n>Rating}"
+										class="sapUiTinyMarginTopBottom"/>
+									<m:HBox >
+										<m:RatingIndicator value="{Rating}"
+											editable="false"
+											class="sapUiSmallMarginBegin sapUiSmallMarginTop"
+											visible="{= !${AppModel>/editMode} }"/>
+										<m:RatingIndicator value="{Rating}"
+											editable="true"
+											class="sapUiSmallMarginBegin sapUiSmallMarginTop"
+											visible="{= ${AppModel>/editMode} }"/>
+									</m:HBox>
+								</f:content>
+							</f:SimpleForm>
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+		</sections>
+		<footer>
+			<m:OverflowToolbar>
+				<m:ToolbarSpacer/>
+				<m:Button type="Emphasized"
+					text="{i18n>SaveButton}"
+					press="onSubmitChanges"
+					width="60px"/>
+				<m:Button type="Transparent"
+					text="{i18n>CancelButton}"
+					press="onCancelChanges"
+					class="sapUiSmallMarginBeginEnd"
+					width="60px"/>
+			</m:OverflowToolbar>
+		</footer>
+	</ObjectPageLayout>
+</mvc:View>

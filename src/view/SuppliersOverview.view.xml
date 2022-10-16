@@ -1,0 +1,157 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:f="sap.f"
+	xmlns:core="sap.ui.core"
+	xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:layout="sap.ui.layout"
+	height="100%"
+	controllerName="suppliers.products.application.controller.SuppliersOverview">
+	<f:DynamicPage id="dynamicPageId">
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Title text="{i18n>SuppliersOverviewTitle}"
+						class="sapUiSmallMarginTop"/>
+				</f:heading>
+				<f:breadcrumbs>
+					<Breadcrumbs>
+						<Link text="{i18n>LinkToFirstPage}"/>
+					</Breadcrumbs>
+				</f:breadcrumbs>
+			</f:DynamicPageTitle>
+		</f:title>
+		<f:header>
+			<f:DynamicPageHeader>
+				<fb:FilterBar clear="onClear"
+					search="onSearch"
+					useToolbar="false"
+					showGoOnFB="true"
+					showClearOnFB="true">
+					<fb:filterGroupItems>
+						<fb:FilterGroupItem groupName="__$INTERNAL$"
+							name="A"
+							label="{i18n>LabelSearch}"
+							partOfCurrentVariant="true"
+							visibleInFilterBar="true">
+							<fb:control>
+								<Input id="idSearch" />
+							</fb:control>
+						</fb:FilterGroupItem>
+
+						<fb:FilterGroupItem groupName="__$INTERNAL$"
+							name="B"
+							label="{i18n>LabelSelectCountry}"
+							partOfCurrentVariant="true"
+							visibleInFilterBar="true">
+							<fb:control>
+								<MultiComboBox id="idSelectCountry">
+									<core:Item key="USA"
+										text="USA" />
+									<core:Item key="Brazil"
+										text="Brazil" />
+									<core:Item key="United Kingdom"
+										text="United Kingdom" />
+								</MultiComboBox>
+
+							</fb:control>
+						</fb:FilterGroupItem>
+
+						<fb:FilterGroupItem groupName="__$INTERNAL$"
+							name="C"
+							label="{i18n>LabelSelectCity}"
+							partOfCurrentVariant="true"
+							visibleInFilterBar="true">
+							<fb:control>
+								<MultiInput id="multiInput"
+									valueHelpRequest=".onValueHelpRequested">
+								</MultiInput>
+
+							</fb:control>
+						</fb:FilterGroupItem>
+					</fb:filterGroupItems>
+				</fb:FilterBar>
+			</f:DynamicPageHeader>
+		</f:header>
+		<f:content >
+			<Table id="idTableSuppliers"
+				includeItemInSelection="true"
+				selectionChange="onTableItemChecked"
+				itemPress="onTableItemPressed"
+				mode="MultiSelect"
+				items="{suppliers>/suppliers}"
+				sticky="ColumnHeaders"
+				noDataText="No suppliers">
+				<headerToolbar>
+					<OverflowToolbar>
+						<content>
+							<Title text="{i18n>SuppliersOverviewTitle}({SuppliersOverview>/countTableRows})"/>
+							<ToolbarSpacer />
+							<Button type="Default"
+								text="{i18n>CreateButton}"
+								press="onCreateSupplierPress"/>
+							<Button type="Default"
+								text="{i18n>DeleteButton}"
+								enabled="{SuppliersOverview>/isDeleteButtonEnabled}"
+								press="onDeleteSuppliersPress"/>
+						</content>
+					</OverflowToolbar>
+				</headerToolbar>
+				<columns>
+					<Column width="13rem">
+						<Text text="{i18n>SupplierName}"/>
+					</Column>
+					<Column width="9rem">
+						<Text text="{i18n>Country}"/>
+					</Column>
+					<Column width="6rem">
+						<Text text="{i18n>State}"/>
+					</Column>
+					<Column width="10rem">
+						<Text text="{i18n>City}"/>
+					</Column>
+					<Column width="10rem">
+						<Text text="{i18n>Street}"/>
+					</Column>
+					<Column width="8rem">
+						<Text text="{i18n>ZipCode}"/>
+					</Column>
+					<Column >
+						<Text text="{i18n>EstablishedDate}"/>
+					</Column>
+					<Column width="7rem"
+						hAlign="End">
+						<Text text="{i18n>Status}"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem vAlign="Middle"
+						type="Navigation">
+						<cells >
+							<ObjectIdentifier title="{suppliers>Name}"/>
+							<Text maxLines="1"
+								text="{suppliers>Address/Country}" />
+							<Text maxLines="1"
+								text="{suppliers>Address/State}" />
+							<Text maxLines="1"
+								text="{suppliers>Address/City}" />
+							<Text maxLines="1"
+								text="{suppliers>Address/Street}" />
+							<Text maxLines="1"
+								text="{suppliers>Address/ZipCode}" />
+							<Text text="{ path: 'suppliers>Established',
+								type: 'sap.ui.model.type.DateTime',
+								formatOptions: {
+									source: {pattern: 'yyyy-MM-ddTHH:mm:ss.SSSX'},
+									pattern: 'MMM dd, yyyy',
+									style: 'medium'
+								}}"/>
+							<ObjectStatus text="{suppliers>Status}"
+								state="Indication03" />
+
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</f:content>
+	</f:DynamicPage>
+</mvc:View>

@@ -1,0 +1,357 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.uxap"
+	xmlns:layout="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:l="sap.ui.layout"
+	xmlns:core="sap.ui.core"
+	xmlns:m="sap.m"
+	height="100%"
+	controllerName="suppliers.products.application.controller.SupplierDetails">
+	<ObjectPageLayout id="ObjectPageLayout"
+		subSectionLayout="TitleOnLeft"
+		showTitleInHeaderContent="true"
+		upperCaseAnchorBar="false"
+		showFooter="{= ${AppModel>/editMode} }">
+		<headerTitle>
+			<ObjectPageDynamicHeaderTitle>
+				<breadcrumbs>
+					<m:Breadcrumbs>
+						<m:Link text="{i18n>LinkToFirstPage}"
+							press="goToSuppliersOverview"/>
+						<m:Link text="{i18n>LinkToSecondPage}"/>
+					</m:Breadcrumbs>
+				</breadcrumbs>
+				<expandedHeading>
+					<m:Title text="{Name}"
+						wrapping="true"
+						class="sapUiSmallMarginTop"/>
+				</expandedHeading>
+
+				<actions>
+					<m:Button text="{i18n>EditButton}"
+						type="Emphasized"
+						press="onEditPress"
+						visible="{= !${AppModel>/editMode} }"/>
+					<m:Button type="Transparent"
+						text="{i18n>DeleteButton}"
+						press="onDeleteSupplierPress"
+						visible="{= !${AppModel>/editMode} }"/>
+				</actions>
+			</ObjectPageDynamicHeaderTitle>
+		</headerTitle>
+		<headerContent>
+			<m:HBox class="sapUiLargeMarginTopBottom sapUiMediumMarginBegin">
+				<m:ObjectAttribute text="{i18n>SupplierId}: {SuppliersDetails>/supplierID}"
+					class="sapUiSmallMarginEnd"/>
+			</m:HBox>
+		</headerContent>
+		<sections>
+			<ObjectPageSection title="{i18n>SectionTitleSupplierInformation}">
+				<subSections>
+					<ObjectPageSubSection >
+						<blocks>
+							<m:HBox class="sapUiMediumMarginTop"
+								width="100%">
+								<m:VBox width="50%">
+									<f:SimpleForm layout="ResponsiveGridLayout"
+										labelSpanXL="3"
+										labelSpanL="3"
+										labelSpanM="3"
+										labelSpanS="12"
+										emptySpanXL="2"
+										emptySpanL="2"
+										emptySpanM="2"
+										emptySpanS="0"
+										columnsXL="1"
+										columnsL="1"
+										columnsM="1"
+										editable="true"
+										width="100%">
+										<f:content>
+											<m:Label text="{i18n>SupplierName}"
+												required="{= ${AppModel>/createMode} }"/>
+											<m:HBox>
+												<m:Text text="{Name}"
+													class="sapUiSmallMarginBegin"
+													visible="{= !${AppModel>/editMode} }"/>
+												<m:Input width="14rem"
+													id="idInputSupplierName"
+													class="sapUiSmallMarginBegin"
+													placeholder="Enter supplier name"
+													value="{Name}"
+													change="onFocusLeaves"
+													visible="{= ${AppModel>/editMode} }"
+													fieldGroupIds="inputsEditMode"/>
+											</m:HBox>
+											<m:Label text="{i18n>Country}"
+												required="{= ${AppModel>/createMode} }"/>
+											<m:HBox width="100%">
+												<m:Text text="{Address/Country}"
+													class="sapUiSmallMarginBegin"
+													visible="{= !${AppModel>/editMode} }"/>
+												<m:Select width="14rem"
+													id="idSelectCountry"
+													class="sapUiSmallMarginBegin"
+													visible="{= ${AppModel>/editMode} }"
+													selectedKey="{Address/Country}"
+													forceSelection="false"
+													fieldGroupIds="inputsEditMode"
+													change="onFocusLeaves">
+													<core:Item key="USA"
+														text="USA" />
+													<core:Item key="Brazil"
+														text="Brazil" />
+													<core:Item key="United Kingdom"
+														text="United Kingdom" />
+												</m:Select>
+											</m:HBox>
+											<m:Label text="{i18n>State}"
+												required="{= ${AppModel>/createMode} }"/>
+											<m:HBox>
+												<m:Text text="{Address/State}"
+													class="sapUiSmallMarginBegin"
+													visible="{= !${AppModel>/editMode} }"/>
+												<m:Input width="14rem"
+													id="idInputState"
+													placeholder="Enter state"
+													valueHelpOnly="true"
+													showValueHelp="true"
+													valueHelpRequest=".onStateValueHelpRequested"
+													class="sapUiSmallMarginBegin"
+													value="{Address/State}"
+													visible="{= ${AppModel>/editMode} }"
+													fieldGroupIds="inputsEditMode"
+													liveChange="onFocusLeaves"/>
+											</m:HBox>
+										</f:content>
+									</f:SimpleForm>
+								</m:VBox>
+								<m:VBox width="50%">
+									<f:SimpleForm layout="ResponsiveGridLayout"
+										labelSpanXL="3"
+										labelSpanL="3"
+										labelSpanM="3"
+										labelSpanS="12"
+										emptySpanXL="2"
+										emptySpanL="2"
+										emptySpanM="2"
+										emptySpanS="0"
+										columnsXL="1"
+										columnsL="1"
+										columnsM="1"
+										editable="true"
+										width="100%">
+										<f:content>
+											<m:Label text="{i18n>City}"
+												required="{= ${AppModel>/createMode} }"/>
+											<m:HBox >
+												<m:Text text="{Address/City}"
+													class="sapUiSmallMarginBegin"
+													visible="{= !${AppModel>/editMode} }"/>
+												<m:Input width="14rem"
+													id="idInputCity"
+													valueHelpOnly="true"
+													showValueHelp="true"
+													valueHelpRequest=".onCityValueHelpRequested"
+													class="sapUiSmallMarginBegin"
+													value="{Address/City}"
+													placeholder="Enter city"
+													visible="{= ${AppModel>/editMode} }"
+													fieldGroupIds="inputsEditMode"
+													liveChange="onFocusLeaves"/>
+											</m:HBox>
+											<m:Label text="{i18n>Street}"/>
+											<m:HBox>
+												<m:Text text="{Address/Street}"
+													class="sapUiSmallMarginBegin"
+													visible="{= !${AppModel>/editMode} }"/>
+												<m:Input width="14rem"
+													class="sapUiSmallMarginBegin"
+													placeholder="Enter street"
+													value="{Address/Street}"
+													change="onFocusLeaves"
+													visible="{= ${AppModel>/editMode} }"
+													fieldGroupIds="inputsEditMode"/>
+											</m:HBox>
+											<m:Label text="{i18n>ZipCode}"/>
+											<m:HBox>
+												<m:Text text="{Address/ZipCode}"
+													class="sapUiSmallMarginBegin"
+													visible="{= !${AppModel>/editMode} }"/>
+												<m:Input width="14rem"
+													class="sapUiSmallMarginBegin"
+													placeholder="Enter zip code"
+													value="{Address/ZipCode}"
+													change="onFocusLeaves"
+													visible="{= ${AppModel>/editMode} }"
+													fieldGroupIds="inputsEditMode"/>
+											</m:HBox>
+										</f:content>
+									</f:SimpleForm>
+								</m:VBox>
+							</m:HBox>
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+
+			<ObjectPageSection title="{i18n>SectionTitleProducts}"
+				showTitle="false">
+				<subSections>
+					<ObjectPageSubSection >
+						<blocks>
+							<m:Table id="idTableProducts"
+								includeItemInSelection="true"
+								itemPress="goToProductDetails"
+								selectionChange="onTableItemChecked"
+								mode="{AppModel>/tableMode}"
+								items="{Products}"
+								sticky="ColumnHeaders"
+								noDataText="No products">
+								<m:headerToolbar>
+									<m:OverflowToolbar>
+										<m:content>
+											<m:Title text="{i18n>Products}({SuppliersDetails>/countTableRows})"/>
+											<m:ToolbarSpacer />
+											<m:SearchField width="30%"
+												placeholder="Search"
+												search="onProductsSearch"
+												visible="{= !${AppModel>/editMode} }"/>
+										</m:content>
+									</m:OverflowToolbar>
+								</m:headerToolbar>
+								<m:infoToolbar>
+									<m:OverflowToolbar design="Transparent"
+										visible="{= ${AppModel>/editMode} }">
+										<m:ToolbarSpacer />
+										<m:Button type="Default"
+											text="{i18n>CreateButton}"
+											press="onCreateProductPress"/>
+										<m:Button type="Default"
+											text="{i18n>DeleteButton}"
+											enabled="{SuppliersDetails>/isDeleteButtonEnabled}"
+											press="onDeleteProductsPress"/>
+									</m:OverflowToolbar>
+								</m:infoToolbar>
+								<m:columns>
+									<m:Column width="12rem">
+										<m:Text text="{i18n>ProductName}"/>
+									</m:Column>
+									<m:Column width="6rem"
+										hAlign="End">
+										<m:Text text="{i18n>Price}"/>
+									</m:Column>
+									<m:Column width="14rem">
+										<m:Text text="{i18n>Description}" />
+									</m:Column>
+									<m:Column width="9rem"
+										hAlign="Center">
+										<m:Text text="{i18n>ReleaseDate}"/>
+									</m:Column>
+									<m:Column width="8rem">
+										<m:Text text="{i18n>DiscontinuedDate}"/>
+									</m:Column>
+									<m:Column width="8rem">
+										<m:Text text="{i18n>Rating}"/>
+									</m:Column>
+								</m:columns>
+								<m:items>
+									<m:ColumnListItem vAlign="Middle"
+										type="Navigation">
+										<m:cells >
+											<m:HBox>
+												<m:ObjectIdentifier title="{Name}"
+													visible="{= !${AppModel>/editMode} }"/>
+												<m:Input value="{Name}"
+													placeholder="Enter product name"
+													visible="{= ${AppModel>/editMode} }"
+													change="onFocusLeaves"
+													fieldGroupIds="inputsEditMode"/>
+											</m:HBox>
+											<m:HBox justifyContent="End">
+												<m:ObjectNumber number="{Price}"
+													unit="BYN"
+													visible="{= !${AppModel>/editMode} }"/>
+												<m:Input type="Number"
+													value="{Price}"
+													placeholder="Enter price"
+													visible="{= ${AppModel>/editMode} }"
+													change="onFocusLeaves"
+													fieldGroupIds="inputsEditMode"/>
+												<m:Text text="BYN"
+													class="sapUiTinyMarginBegin sapUiTinyMarginTop"
+													wrapping="false"
+													visible="{= ${AppModel>/editMode} }"/>
+											</m:HBox>
+											<m:HBox>
+												<m:Text maxLines="1"
+													text="{Description}"
+													visible="{= !${AppModel>/editMode} }"/>
+												<m:TextArea value="{Description}"
+													rows="2"
+													change="onFocusLeaves"
+													visible="{= ${AppModel>/editMode} }"
+													fieldGroupIds="inputsEditMode"/>
+											</m:HBox>
+											<m:HBox justifyContent="Center">
+												<m:Text text="{ path: 'ReleaseDate',
+														type: 'sap.ui.model.type.DateTime',
+														formatOptions: {
+															source: {pattern: 'yyyy-MM-ddTHH:mm:ss.SSSX'},
+															pattern: 'dd-MM-yyyy',
+															style: 'medium'
+														}}"
+													visible="{= !${AppModel>/editMode} }"/>
+												<m:DateTimePicker change="onDateChanged"
+													value="{path: 'ReleaseDate'}"
+													visible="{= ${AppModel>/editMode} }"
+													fieldGroupIds="inputsEditMode"/>
+											</m:HBox>
+											<m:HBox>
+												<m:Text text="{ path: 'DiscontinueDate',
+								type: 'sap.ui.model.type.DateTime',
+								formatOptions: {
+									source: {pattern: 'yyyy-MM-ddTHH:mm:ss.SSSX'},
+									pattern: 'dd-MM-yyyy',
+									style: 'medium'
+								}}"
+													visible="{= !${AppModel>/editMode} }"/>
+												<m:DateTimePicker value="{
+					path: 'DiscontinueDate'}"
+													visible="{= ${AppModel>/editMode} }"
+													change="onDateChanged"
+													fieldGroupIds="inputsEditMode"/>
+											</m:HBox>
+											<m:HBox>
+												<m:RatingIndicator value="{Rating}"
+													editable="false"
+													visible="{= !${AppModel>/editMode} }"/>
+												<m:RatingIndicator value="{Rating}"
+													editable="true"
+													visible="{= ${AppModel>/editMode} }"/>
+											</m:HBox>
+										</m:cells>
+									</m:ColumnListItem>
+								</m:items>
+							</m:Table>
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+		</sections>
+		<footer>
+			<m:OverflowToolbar>
+				<m:ToolbarSpacer/>
+				<m:Button type="Emphasized"
+					text="{i18n>SaveButton}"
+					press="onSubmitChanges"
+					width="60px"/>
+				<m:Button type="Transparent"
+					text="{i18n>CancelButton}"
+					press="onCancelChanges"
+					class="sapUiSmallMarginBeginEnd"
+					width="60px"/>
+			</m:OverflowToolbar>
+		</footer>
+	</ObjectPageLayout>
+</mvc:View>

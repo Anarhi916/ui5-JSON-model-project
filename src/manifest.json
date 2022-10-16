@@ -1,0 +1,107 @@
+{
+  "sap.app": {
+    "id": "suppliers.products.application",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "applicationVersion": {
+      "version": "1.0.0"
+    }
+  },
+
+  "sap.ui": {
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    },
+    "supportedThemes": ["sap_fiori_3"]
+  },
+  "sap.ui5": {
+    "rootView": "suppliers.products.application.view.App",
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "viewPath": "suppliers.products.application.view",
+        "controlId": "RootApp",
+        "controlAggregation": "pages",
+        "bypassed": {
+          "target": ["notFound"]
+        },
+        "async": true
+      },
+      "routes": [
+        {
+          "pattern": "",
+          "name": "SuppliersOverview",
+          "target": ["suppliersOverview"]
+        },
+
+        {
+          "pattern": "SupplierDetails/{SupplierID}",
+          "name": "SupplierDetailsRoute",
+          "target": ["supplierDetails"]
+        },
+
+        {
+          "pattern": "SupplierDetails/{SupplierID}/ProductDetails/{ProductID}",
+          "name": "ProductDetailsRoute",
+          "target": ["productDetails"]
+        }
+      ],
+
+      "targets": {
+        "suppliersOverview": {
+          "viewName": "SuppliersOverview",
+          "viewId": "suppliersOverview",
+          "viewLevel": 1
+        },
+
+        "supplierDetails": {
+          "viewName": "SupplierDetails",
+          "viewId": "supplierDetails",
+          "viewLevel": 2
+        },
+
+        "productDetails": {
+          "viewName": "ProductDetails",
+          "viewId": "productDetails",
+          "viewLevel": 3
+        },
+
+        "notFound": {
+          "viewName": "NotFound",
+          "viewId": "notFound"
+        }
+      }
+    },
+    "dependencies": {
+      "minUI5Version": "1.54.0",
+      "libs": {
+        "sap.m": {}
+      }
+    },
+    "resources": {},
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "suppliers.products.application.i18n.i18n",
+          "bundleLocale": "en"
+        }
+      },
+
+      "suppliers": {
+        "type": "sap.ui.model.json.JSONModel",
+        "uri": "suppliers.json"
+      },
+
+      "filterData": {
+        "type": "sap.ui.model.json.JSONModel",
+        "uri": "citiesAndStates.json"
+      }
+    }
+  }
+}

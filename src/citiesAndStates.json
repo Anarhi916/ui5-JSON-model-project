@@ -1,0 +1,32 @@
+{
+  "Сities": [
+    { "City": "North", "id": 1 },
+    { "City": "Lake", "id": 2 },
+    { "City": "Greenholt Lake", "id": 3 },
+    { "City": "Colorado", "id": 4 },
+    { "City": "Varido", "id": 5 },
+    { "City": "Statom", "id": 6 },
+    { "City": "West", "id": 7 },
+    { "City": "New-York", "id": 8 },
+    { "City": "South", "id": 9 },
+    { "City": "East", "id": 10 },
+    { "City": "Totem", "id": 11 },
+    { "City": "Dirvald", "id": 12 },
+    { "City": "Cuveit", "id": 13 },
+    { "City": "Avaram", "id": 14 }
+  ],
+  "States": [
+    { "State": "MI" },
+    { "State": "TN" },
+    { "State": "OH" },
+    { "State": "IA" },
+    { "State": "IL" },
+    { "State": "OR" },
+    { "State": "NY" },
+    { "State": "AK" },
+    { "State": "KY" },
+    { "State": "RU" },
+    { "State": "SC" },
+    { "State": "PI" }
+  ]
+}

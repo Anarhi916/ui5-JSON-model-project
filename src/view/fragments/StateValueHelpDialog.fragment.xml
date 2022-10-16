@@ -1,0 +1,13 @@
+<core:FragmentDefinition xmlns="sap.ui.comp.valuehelpdialog"
+	xmlns:core="sap.ui.core">
+	<ValueHelpDialog title="State"
+		ok=".onStateValueHelpOkPress"
+		cancel=".onStateValueHelpCancelPress"
+		afterClose=".onStateValueHelpAfterClose"
+		key="State"
+		descriptionKey="State"
+		tokenDisplayBehaviour="descriptionOnly"
+		filterMode="false"
+		supportMultiselect="false">
+	</ValueHelpDialog>
+</core:FragmentDefinition>
