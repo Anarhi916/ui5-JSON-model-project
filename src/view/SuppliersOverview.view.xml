@@ -3,8 +3,6 @@
 	xmlns:f="sap.f"
 	xmlns:core="sap.ui.core"
 	xmlns:fb="sap.ui.comp.filterbar"
-	xmlns:layout="sap.ui.layout"
-	height="100%"
 	controllerName="suppliers.products.application.controller.SuppliersOverview">
 	<f:DynamicPage id="dynamicPageId">
 		<f:title>
@@ -55,7 +53,6 @@
 
 							</fb:control>
 						</fb:FilterGroupItem>
-
 						<fb:FilterGroupItem groupName="__$INTERNAL$"
 							name="C"
 							label="{i18n>LabelSelectCity}"
@@ -65,7 +62,6 @@
 								<MultiInput id="multiInput"
 									valueHelpRequest=".onValueHelpRequested">
 								</MultiInput>
-
 							</fb:control>
 						</fb:FilterGroupItem>
 					</fb:filterGroupItems>
@@ -92,7 +88,7 @@
 							<Button type="Default"
 								text="{i18n>DeleteButton}"
 								enabled="{SuppliersOverview>/isDeleteButtonEnabled}"
-								press="onDeleteSuppliersPress"/>
+								press="on_deleteSuppliersPress"/>
 						</content>
 					</OverflowToolbar>
 				</headerToolbar>

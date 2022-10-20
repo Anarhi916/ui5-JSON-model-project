@@ -34,7 +34,7 @@
 						visible="{= !${AppModel>/editMode} }"/>
 					<m:Button type="Transparent"
 						text="{i18n>DeleteButton}"
-						press="onDeleteSupplierPress"
+						press="on_deleteSupplierPress"
 						visible="{= !${AppModel>/editMode} }"/>
 				</actions>
 			</ObjectPageDynamicHeaderTitle>
@@ -170,8 +170,7 @@
 													placeholder="Enter street"
 													value="{Address/Street}"
 													change="onFocusLeaves"
-													visible="{= ${AppModel>/editMode} }"
-													fieldGroupIds="inputsEditMode"/>
+													visible="{= ${AppModel>/editMode} }"/>
 											</m:HBox>
 											<m:Label text="{i18n>ZipCode}"/>
 											<m:HBox>
@@ -183,8 +182,7 @@
 													placeholder="Enter zip code"
 													value="{Address/ZipCode}"
 													change="onFocusLeaves"
-													visible="{= ${AppModel>/editMode} }"
-													fieldGroupIds="inputsEditMode"/>
+													visible="{= ${AppModel>/editMode} }"/>
 											</m:HBox>
 										</f:content>
 									</f:SimpleForm>
@@ -344,11 +342,11 @@
 				<m:ToolbarSpacer/>
 				<m:Button type="Emphasized"
 					text="{i18n>SaveButton}"
-					press="onSubmitChanges"
+					press="on_submitChanges"
 					width="60px"/>
 				<m:Button type="Transparent"
 					text="{i18n>CancelButton}"
-					press="onCancelChanges"
+					press="on_cancelChanges"
 					class="sapUiSmallMarginBeginEnd"
 					width="60px"/>
 			</m:OverflowToolbar>

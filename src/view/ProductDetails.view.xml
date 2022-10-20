@@ -118,11 +118,11 @@
 				<m:ToolbarSpacer/>
 				<m:Button type="Emphasized"
 					text="{i18n>SaveButton}"
-					press="onSubmitChanges"
+					press="on_submitChanges"
 					width="60px"/>
 				<m:Button type="Transparent"
 					text="{i18n>CancelButton}"
-					press="onCancelChanges"
+					press="on_cancelChanges"
 					class="sapUiSmallMarginBeginEnd"
 					width="60px"/>
 			</m:OverflowToolbar>

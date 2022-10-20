@@ -6,6 +6,7 @@ sap.ui.define(
         "sap/ui/model/Filter",
         "sap/base/util/deepExtend",
         "sap/m/MessageBox",
+        "sap/base/util/uid",
     ],
     function (
         BaseController,
@@ -13,7 +14,8 @@ sap.ui.define(
         Fragment,
         Filter,
         deepExtend,
-        MessageBox
+        MessageBox,
+        uid
     ) {
         "use strict";
 
@@ -24,7 +26,7 @@ sap.ui.define(
                  * Controller's "init" lifecycle method.
                  */
                 onInit: function () {
-                    this.myGetRouter()
+                    this._myGetRouter()
                         .getRoute("SuppliersOverview")
                         .attachPatternMatched(this.onPatternMatched, this);
                     this._oMultiInput = this.getView().byId("multiInput");
@@ -136,7 +138,7 @@ sap.ui.define(
                 onSearch: function () {
                     var oTable = this.getView().byId("idTableSuppliers");
                     var oBinding = oTable.getBinding("items");
-                    oBinding.filter(this.getFilters());
+                    oBinding.filter(this._getFilters());
                     this.setTableCounter();
                 },
 
@@ -144,7 +146,7 @@ sap.ui.define(
                  * Get and specify filters for searching function
                  * @returns {Array} Array of filters
                  */
-                getFilters: function () {
+                _getFilters: function () {
                     var aFilters = [];
                     var oSearchName = this.getView().byId("idSearch");
                     var oSelectCountry = this.getView().byId("idSelectCountry");
@@ -229,19 +231,19 @@ sap.ui.define(
                         "/isDeleteButtonEnabled",
                         false
                     );
-                    this.myGetRouter().navTo("SupplierDetailsRoute", {
-                        SupplierID: oCtx.getObject("id"),
+                    this._myGetRouter().navTo("SupplierDetailsRoute", {
+                        SupplierID: oCtx.getProperty("id"),
                     });
                 },
 
                 /**
                  * Delete selected suppliers, "delete" button press event handler
                  */
-                onDeleteSuppliersPress: function () {
+                on_deleteSuppliersPress: function () {
                     let sMessage = this.getView()
                         .getModel("i18n")
                         .getResourceBundle()
-                        .getText("MessageDeleteSuppliers");
+                        .getText("Message_deleteSuppliers");
                     MessageBox.confirm(sMessage, {
                         initialFocus: sap.m.MessageBox.Action.CANCEL,
                         onClose: function (sButton) {
@@ -331,12 +333,15 @@ sap.ui.define(
                             Country: "",
                         },
                         Established: sDate,
-                        id: `${aSuppliers.length + 1}`,
+                        id: uid(),
                         Products: [],
                     };
                     aSuppliers.push(oNewSupplier);
                     oSuppliersModel.setProperty("/suppliers", aSuppliers);
-                    var sPath = `/suppliers/${aSuppliers.length - 1}`;
+                    const nIndex = aSuppliers.findIndex(
+                        (oSupplier) => oSupplier.id === oNewSupplier.id
+                    );
+                    var sPath = `/suppliers/${nIndex}`;
                     let oCtx = new sap.ui.model.Context(oSuppliersModel, sPath);
                     oAppModel.setProperty("/oCtx", oCtx);
                     oTable.removeSelections();
@@ -344,8 +349,7 @@ sap.ui.define(
                         "/isDeleteButtonEnabled",
                         false
                     );
-                    oAppModel.setProperty("/tableMode", "MultiSelect");
-                    this.myGetRouter().navTo("SupplierDetailsRoute", {
+                    this._myGetRouter().navTo("SupplierDetailsRoute", {
                         SupplierID: oCtx.getObject("id"),
                     });
                 },

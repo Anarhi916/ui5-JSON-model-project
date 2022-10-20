@@ -95,12 +95,12 @@
 
       "suppliers": {
         "type": "sap.ui.model.json.JSONModel",
-        "uri": "suppliers.json"
+        "uri": "mockdata/suppliers.json"
       },
 
       "filterData": {
         "type": "sap.ui.model.json.JSONModel",
-        "uri": "citiesAndStates.json"
+        "uri": "mockdata/citiesAndStates.json"
       }
     }
   }

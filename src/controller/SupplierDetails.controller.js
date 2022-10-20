@@ -26,7 +26,7 @@ sap.ui.define(
                  * Controller's "init" lifecycle method.
                  */
                 onInit: function () {
-                    this.myGetRouter()
+                    this._myGetRouter()
                         .getRoute("SupplierDetailsRoute")
                         .attachPatternMatched(this.onPatternMatched, this);
                     var oSuppliersDetailsModel = new JSONModel({
@@ -108,8 +108,8 @@ sap.ui.define(
                         false
                     );
                     oTable.removeSelections();
-                    this.clearDataValidation();
-                    this.myGetRouter().navTo("SuppliersOverview");
+                    this._clearDataValidation();
+                    this._myGetRouter().navTo("SuppliersOverview");
                 },
 
                 /**
@@ -129,7 +129,7 @@ sap.ui.define(
                         false
                     );
 
-                    this.myGetRouter().navTo("ProductDetailsRoute", {
+                    this._myGetRouter().navTo("ProductDetailsRoute", {
                         ProductID: oCtx.getObject("id"),
                         SupplierID: sSupplierId,
                     });
@@ -163,9 +163,7 @@ sap.ui.define(
                 onProductsSearch: function (oEvent) {
                     var oTable = this.getView().byId("idTableProducts");
                     var oItemsBinding = oTable.getBinding("items");
-
                     var sQuery = oEvent.getParameter("query");
-
                     var oFilter = new Filter({
                         filters: [
                             new Filter({
@@ -210,9 +208,9 @@ sap.ui.define(
                     var sValue = oSource.getValue();
                     if (Date.parse(sValue)) {
                         var sPropertyName = oSource
-                            .getBindingInfo("value")
-                            .binding.getPath();
-                        var sPath = oSource.getBindingContext().sPath;
+                            .getBinding("value")
+                            .getPath();
+                        var sPath = oSource.getBindingContext().getPath();
                         var oSuppliersModel =
                             this.getView().getModel("suppliers");
                         if (sPropertyName === "DiscontinueDate") {
@@ -262,36 +260,36 @@ sap.ui.define(
 
                 /**
                  * "Edit" button event handler.
-                 * Call function setEditMode() from Base Controller
+                 * Call function _setEditMode() from Base Controller
                  */
                 onEditPress: function () {
-                    this.setEditMode();
+                    this._setEditMode();
                 },
 
                 /**
                  * "Save" button event handler.
-                 * Call function submitChanges() from Base Controller
+                 * Call function _submitChanges() from Base Controller
                  */
-                onSubmitChanges: function () {
-                    this.submitChanges();
+                on_submitChanges: function () {
+                    this._submitChanges();
                 },
 
                 /**
                  * "Cancel" button event handler.
-                 * Call function cancelChanges() from Base Controller
+                 * Call function _cancelChanges() from Base Controller
                  */
-                onCancelChanges: function () {
-                    this.cancelChanges();
+                on_cancelChanges: function () {
+                    this._cancelChanges();
                 },
 
                 /**
                  * Focus leave from input event handler.
-                 * Call function validateInputsInEditMode() from Base Controller
+                 * Call function _validateInputsInEditMode() from Base Controller
                  *
                  * @param {sap.ui.base.Event} oEvent event object
                  */
                 onFocusLeaves: function (oEvent) {
-                    this.validateInputsInEditMode(oEvent);
+                    this._validateInputsInEditMode(oEvent);
                 },
 
                 /**
@@ -313,7 +311,7 @@ sap.ui.define(
                             );
 
                             this._oStateValueHelpDialog.getTableAsync().then(
-                                function (oTable) {
+                               (oTable) =>{
                                     oTable.setModel(oFilterModel);
                                     var oColumn = new sap.ui.table.Column({
                                         label: new sap.m.Label({
@@ -332,7 +330,7 @@ sap.ui.define(
                                         );
                                     }
                                     this._oStateValueHelpDialog.update();
-                                }.bind(this)
+                                }
                             );
                             this._oStateValueHelpDialog.open();
                         }.bind(this)
@@ -358,7 +356,7 @@ sap.ui.define(
                             );
 
                             this._oCityValueHelpDialog.getTableAsync().then(
-                                function (oTable) {
+                                (oTable) =>{
                                     oTable.setModel(oFilterModel);
                                     var oColumn = new sap.ui.table.Column({
                                         label: new sap.m.Label({
@@ -377,7 +375,7 @@ sap.ui.define(
                                         );
                                     }
                                     this._oCityValueHelpDialog.update();
-                                }.bind(this)
+                                }
                             );
                             this._oCityValueHelpDialog.open();
                         }.bind(this)
@@ -448,10 +446,10 @@ sap.ui.define(
 
                 /**
                  * "Delete" current supplier button press event handler.
-                 * Call function deleteSupplier() from Base Controller
+                 * Call function _deleteSupplier() from Base Controller
                  */
-                onDeleteSupplierPress: function () {
-                    this.deleteSupplier();
+                on_deleteSupplierPress: function () {
+                    this._deleteSupplier();
                 },
 
                 /**
